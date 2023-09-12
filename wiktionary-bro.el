@@ -155,9 +155,10 @@ will be required."
    (if (use-region-p) (list (region-beginning) (region-end))
      (list nil nil)))
   (let* ((word (or term (wiktionary-bro--get-original-word beginning end)))
+         (word-join (string-join (split-string word) "_"))
          (url (format
                "https://en.wiktionary.org/w/api.php?action=parse&format=json&page=%s"
-               word)))
+               word-join)))
     (request url
       :parser #'json-read
       :success
